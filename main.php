@@ -72,10 +72,13 @@ function start($telegram,$update)
 		$telegram->sendPhoto($contentp);
 		$content = array('chat_id' => $chat_id, 'text' => "[Immagine realizzata da Alessandro Ghezzer]");
 		$telegram->sendMessage($content);
-
+		$content = array('chat_id' => $chat_id, 'text' => "Dopo che hai inviato il tuo FILE puoi aggiungere un testo.\nDevi digitare t:numsegnalazione:testo\nper esempio <b>t:123:macchina in terza fila.</b>\nPuò modificare il testo solo lo username che ha fatto la segnalazione.",'parse_mode'=>"HTML");
+		$telegram->sendMessage($content);
 		$log=$today. ",istruzioni," .$chat_id. "\n";
 
 	}elseif ($text=="update"){
+		$statement = "DELETE FROM ". DB_TABLE_GEO ." WHERE username =' '";
+		$db->exec($statement);
 		exec(' sqlite3 -header -csv '.$db_path.' "select * from segnalazioni;" > '.$csv_path. ' ');
 
 	}
@@ -147,7 +150,34 @@ function start($telegram,$update)
 					exit;
 				}
 
-			}}
+			}
+
+		}elseif (strpos($text,'t:') !== false) {
+			//$text=str_replace("/t:",":",$text);
+			$text=str_replace("t:",":",$text);
+			function extractString($string, $start, $end) {
+					$string = " ".$string;
+					$ini = strpos($string, $start);
+					if ($ini == 0) return "";
+					$ini += strlen($start);
+					$len = strpos($string, $end, $ini) - $ini;
+					return substr($string, $ini, $len);
+			}
+			//$testo=$_POST["q"];
+			//$testo="bm%11/01/2016?5-11";
+			$id=extractString($text,":",":");
+			$text=str_replace($id,"",$text);
+			$text=str_replace(":","",$text);
+			$statement = "UPDATE ".DB_TABLE_GEO ." SET text='".$text."' WHERE bot_request_message ='".$id."' AND username='".$username."'";
+//	print_r($reply_to_msg['message_id']);
+			$db->exec($statement);
+			$reply = "Segnalazione n° ".$id." è stata aggiornata, solo se sei stato tu l'utente segnalante";
+			$content = array('chat_id' => $chat_id, 'text' => $reply);
+			$telegram->sendMessage($content);
+			exec(' sqlite3 -header -csv '.$db_path.' "select * from segnalazioni;" > '.$csv_path. ' ');
+			$log=$today. ",segnalazione aggiornata," .$chat_id. "\n";
+
+	}
 		//gestione segnalazioni georiferite
 		elseif($location!=null)
 
@@ -222,8 +252,9 @@ $obj=json_decode($rawData, true);
 $file_path=$obj["result"]["file_path"];
 $caption=$response["message"]["caption"];
 if ($caption != NULL) $text=$caption;
-$risposta="ID dell'allegato: ".$file_id."\n";
-$content = array('chat_id' => $chat_id, 'text' => "per inviare un allegato devi cliccare \xF0\x9F\x93\x8E e poi File. \nRimanda la tua posizione e riprova per cortesia");
+//$risposta="ID dell'allegato: ".$file_id."\n";
+
+$content = array('chat_id' => $chat_id, 'text' => "per inviare un allegato devi cliccare \xF0\x9F\x93\x8E e poi File. \nQuesto perchè la risoluzione delle foto inviate direttamente dal rullino\nè molto bassa, mentre inviando la stessa foto come FILE\n viene mantenuta la risoluzione originale dello scatto.\nRimanda la tua posizione e riprova per cortesia");
 $telegram->sendMessage($content);
 $statement = "DELETE FROM ". DB_TABLE_GEO ." where bot_request_message = '" . $reply_to_msg['message_id'] . "'";
 $db->exec($statement);
@@ -274,7 +305,7 @@ while($res = $result->fetchArray(SQLITE3_ASSOC))
 		 }
 
 		 //inserisce la segnalazione nel DB delle segnalazioni georiferite
-			 $statement = "UPDATE ".DB_TABLE_GEO ." SET text='".$text."',file_id='". $file_id ."',filename='". $file_name ."',first_name='". $first_name ."',file_path='". $file_path ."',username='". $username ."' WHERE bot_request_message ='".$reply_to_msg['message_id']."'";
+			 $statement = "UPDATE ".DB_TABLE_GEO ." SET file_id='". $file_id ."',filename='". $file_name ."',first_name='". $first_name ."',file_path='". $file_path ."',username='". $username ."' WHERE bot_request_message ='".$reply_to_msg['message_id']."'";
 			 print_r($reply_to_msg['message_id']);
 			 $db->exec($statement);
 
@@ -282,6 +313,8 @@ while($res = $result->fetchArray(SQLITE3_ASSOC))
  		$reply .= "Puoi visualizzarla su :\nhttp://www.piersoft.it/vialiberabot/#18/".$row[0]['lat']."/".$row[0]['lng'];
  		$content = array('chat_id' => $chat_id, 'text' => $reply);
  		$telegram->sendMessage($content);
+		$content = array('chat_id' => $chat_id, 'text' => "Dopo che hai inviato la tua segnalazione puoi aggiungere un testo.\nDevi digitare t:numsegnalazione:testo\nper esempio <b>t:".$reply_to_msg['message_id'].":macchina in terza fila.</b>\nPuò modificare il testo solo lo username che ha fatto la segnalazione.",'parse_mode'=>"HTML");
+		$telegram->sendMessage($content);
  		$log=$today. ",information for maps recorded," .$chat_id. "\n";
 
  		exec(' sqlite3 -header -csv '.$db_path.' "select * from segnalazioni;" > '.$csv_path. ' ');
@@ -308,6 +341,9 @@ while($res = $result->fetchArray(SQLITE3_ASSOC))
  	$this->create_keyboard($telegram,$chat_id);
  	//log
  	file_put_contents(LOG_FILE, $log, FILE_APPEND | LOCK_EX);
+	$statement = "DELETE FROM ". DB_TABLE_GEO ." WHERE username =' '";
+	$db->exec($statement);
+	exec(' sqlite3 -header -csv '.$db_path.' "select * from segnalazioni;" > '.$csv_path. ' ');
 
  }
 
