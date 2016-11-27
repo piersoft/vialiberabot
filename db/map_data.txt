@@ -1,0 +1,2 @@
+lat,lng,user,text,bot_request_message,time,file_id,filename,username,first_name,file_path,aggiornata
+40.336664,18.152325,69668132,"prova 223324",502,"2016-11-27 14:46:38 ","","",piersoft,Piersoft,"",gestita

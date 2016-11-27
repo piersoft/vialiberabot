@@ -1,0 +1,43 @@
+2016-11-27 11:34:49,wrong command sent,69668132
+2016-11-27 11:45:18,istruzioni,69668132
+2016-11-27 11:47:07,istruzioni,69668132
+2016-11-27 11:52:24,information for maps recorded,69668132
+2016-11-27 11:52:51,segnalazione cancellata,69668132
+2016-11-27 11:52:55,segnalazione cancellata,69668132
+2016-11-27 11:54:50,new chat started,69668132
+2016-11-27 11:57:07,istruzioni,69668132
+2016-11-27 11:57:16,new chat started,69668132
+2016-11-27 11:57:29,istruzioni,69668132
+2016-11-27 11:58:57,istruzioni,69668132
+2016-11-27 12:11:39,new chat started,69668132
+2016-11-27 12:11:41,new chat started,69668132
+2016-11-27 12:11:42,istruzioni,69668132
+2016-11-27 12:11:43,new chat started,69668132
+2016-11-27 12:11:44,istruzioni,69668132
+2016-11-27 12:12:02,information for maps recorded,69668132
+2016-11-27 12:12:09,segnalazione aggiornata,69668132
+2016-11-27 12:14:06,information for maps recorded,69668132
+2016-11-27 12:14:25,segnalazione aggiornata,69668132
+2016-11-27 12:15:46,segnalazione aggiornata,69668132
+2016-11-27 12:17:44,segnalazione aggiornata,69668132
+2016-11-27 12:25:26,new chat started,69668132
+2016-11-27 12:26:56,new chat started,69668132
+2016-11-27 12:27:00,new chat started,69668132
+2016-11-27 12:27:21,new chat started,69668132
+2016-11-27 12:27:28,istruzioni,69668132
+2016-11-27 12:27:44,segnalazione aggiornata,69668132
+2016-11-27 12:29:27,wrong command sent,69668132
+2016-11-27 12:29:36,segnalazione aggiornata,69668132
+2016-11-27 12:30:25,segnalazione aggiornata,69668132
+2016-11-27 12:30:47,information for maps recorded,69668132
+2016-11-27 12:31:09,segnalazione aggiornata,69668132
+2016-11-27 12:33:20,segnalazione aggiornata,69668132
+2016-11-27 12:33:57,segnalazione aggiornata,69668132
+2016-11-27 12:37:17,segnalazione aggiornata,69668132
+2016-11-27 12:38:11,segnalazione aggiornata,69668132
+2016-11-27 12:55:45,information for maps recorded,69668132
+2016-11-27 12:56:25,wrong command sent,-199041506
+2016-11-27 12:57:13,new chat started,69668132
+2016-11-27 12:58:02,information for maps recorded,69668132
+2016-11-27 12:58:52,segnalazione aggiornata,69668132
+2016-11-27 13:02:25,istruzioni,69668132
