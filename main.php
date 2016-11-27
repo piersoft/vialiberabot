@@ -169,6 +169,7 @@ function start($telegram,$update)
 			$id=extractString($text,":",":");
 			$text=str_replace($id,"",$text);
 			$text=str_replace(":","",$text);
+				$text=str_replace(",","",$text);
 			$statement = "UPDATE ".DB_TABLE_GEO ." SET text='".$text."' WHERE bot_request_message ='".$id."' AND username='".$username."'";
 //	print_r($reply_to_msg['message_id']);
 			$db->exec($statement);
