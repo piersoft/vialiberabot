@@ -152,9 +152,10 @@ function start($telegram,$update)
 
 			}
 
-		}elseif (strpos($text,'t:') !== false) {
+		}elseif (strpos($text,'t:') !== false || strpos($text,'T:') !== false) {
 			//$text=str_replace("/t:",":",$text);
 			$text=str_replace("t:",":",$text);
+			$text=str_replace("T:",":",$text);
 			function extractString($string, $start, $end) {
 					$string = " ".$string;
 					$ini = strpos($string, $start);
