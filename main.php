@@ -287,7 +287,7 @@ while($res = $result->fetchArray(SQLITE3_ASSOC))
  		exec(' sqlite3 -header -csv '.$db_path.' "select * from segnalazioni;" > '.$csv_path. ' ');
 		$mappa = "Puoi visualizzarla su :\nhttp://www.piersoft.it/vialiberabot/#18/".$row[0]['lat']."/".$row[0]['lng'];
 
-		$content = array('chat_id' => -199041506, 'text' => "Segnalazione in arrivo numero ".$reply_to_msg['message_id']." da parte dell'utente ".$username." il ".$today."\n".$mappa);
+		$content = array('chat_id' => GRUPPO, 'text' => "Segnalazione in arrivo numero ".$reply_to_msg['message_id']." da parte dell'utente ".$username." il ".$today."\n".$mappa);
 		$telegram->sendMessage($content);
 
 
